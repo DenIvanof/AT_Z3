@@ -34,13 +34,19 @@ public class CallbackTest {
     }
 
     @Test
-    void shouldNameInvaulibleTest() {
+    void shouldNameInvaulibleTest() throws InterruptedException {
         driver.get("http://localhost:9999/");
-        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Richard Gere");
-        driver.findElement(By.cssSelector("[data-test-id=phone] input")).clear();
+        //Thread.sleep(500);
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Иванов Денис");
+        //Thread.sleep(500);
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+71112223344");
+        //Thread.sleep(500);
+        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+        //Thread.sleep(500);
         driver.findElement(By.className("button")).click();
-        String expected = "Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.";
-        String actual = driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText();
+        //Thread.sleep(1000);
+        String expected = "  Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
+        String actual = driver.findElement(By.cssSelector("[data-test-id='order-success']")).getText();
         Assertions.assertEquals(expected, actual);
     }
 
